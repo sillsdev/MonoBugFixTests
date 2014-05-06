@@ -50,8 +50,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="README" />
-    <None Include="custom-mono-commits.txt" />
+    <None Include="README.md" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
