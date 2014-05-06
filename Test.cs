@@ -469,6 +469,32 @@ namespace MonoBugFixTests
 		}
 		#endregion
 		#endregion
+
+		#region Dispose crash in DataGridView (Bug #19567)
+		private class MyDataGridView: DataGridView
+		{
+			public void SetCurrentCell ()
+			{
+				CurrentCell = Rows [1].Cells [1];
+			}
+		}
+
+		[Test]
+		public void Bug19567_DisposeDataGridViewWhenInEditMode ()
+		{
+			var dgv = new MyDataGridView ();
+			dgv.EditMode = DataGridViewEditMode.EditOnEnter;
+			dgv.Columns.Add ("TestColumn", "Test column");
+			dgv.Columns.Add ("Column2", "Second column");
+			dgv.Rows.Add ();
+			dgv.Rows.Add ();
+			dgv.SetCurrentCell ();
+
+			// The Dispose() call will fail if #19567 is not fixed
+			dgv.Dispose ();
+		}
+
+		#endregion
 	}
 }
 
